@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Header from './components/Header.js';
+import Main from './components/Main.js';
+import Footer from './components/Footer.js';
+import PopupProfile from './components/PopupPofile';
+import PopupPlace from './components/PopupPlace';
+import PopupImage from './components/PopupImage';
+import PopupWithSubmit from './components/PopupWithSubmit';
+import PopupAvatar from './components/PopupAvatar';
+import Card from './components/Card';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+		<>
+			<Header />
+			<Main />
+			<Card />
+			<Footer />
+			<PopupProfile />
+			<PopupPlace />
+			<PopupImage />
+			<PopupWithSubmit />
+			<PopupAvatar />
+		</>
   );
 }
 
