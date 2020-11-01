@@ -11,3 +11,14 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+
+
+// // Функция, отвечающая за отрисовку интерфейса
+// function renderAll() {
+// 	ReactDOM.render((
+// 		<App />
+// 	), document.getElementById('root'));
+// }
+
+// // Вызов первичной отрисовки при открытии страницы
+// renderAll();
