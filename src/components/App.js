@@ -16,6 +16,8 @@ function App() {
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+	// const [cards, setCards] = React.useState('hello');
+
 
 	function handleProfilePopup() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
