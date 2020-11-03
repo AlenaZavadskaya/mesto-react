@@ -11,7 +11,7 @@ function PopupWithForm(props) {
 						<fieldset className="form__input-container">
 							{props.children}
 						<div className="form__handlers">
-							<button className="submit__button" type="submit" onSubmit={props.handleClick}>{props.button}</button>
+							<button className="submit__button" type="submit">{props.button}</button>
 						</div>
 					</fieldset>
 				</div>
