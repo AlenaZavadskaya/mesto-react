@@ -1,40 +1,34 @@
 class Api {
-	constructor(options) {
-		this._url = options.url;
-		this._headers = options.headers;
-		// this._body = options.body;
-		// this._users = options.users;
-		// this._me = options.me;
-	}
-
-	_getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+  constructor(options) {
+    this._url = options.url;
+    this._headers = options.headers;
   }
 
-	getUserData() {
-		return fetch(`${this._url}${'users'}/${'me'}`, {
-			method: 'GET',
-			headers: this._headers
-		})
-			.then(this._getResponse)
-	}
+  _getResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  }
 
+  getUserData() {
+    return fetch(`${this._url}${"users"}/${"me"}`, {
+      method: "GET",
+      headers: this._headers,
+    }).then(this._getResponse);
+  }
 
-	getInitialCards() {
-		return fetch(`${this._url}${'cards'}`, {
-			method: 'GET',
-			headers: this._headers
-		})
-			.then(this._getResponse)
-	}
+  getInitialCards() {
+    return fetch(`${this._url}${"cards"}`, {
+      method: "GET",
+      headers: this._headers,
+    }).then(this._getResponse);
+  }
 }
 
 const api = new Api({
-	url: 'https://mesto.nomoreparties.co/v1/cohort-16/',
-	headers: {
-		authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-		'Content-Type': 'application/json'
-	},
+  url: "https://mesto.nomoreparties.co/v1/cohort-16/",
+  headers: {
+    authorization: "90f4c0de-1eee-42e7-8058-3892f79789d8",
+    "Content-Type": "application/json",
+  },
 });
 
 export default api;
