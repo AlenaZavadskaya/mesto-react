@@ -49,7 +49,7 @@ function App() {
           maxLength="40"
           required
         />
-        <span id="name-input-error" className="form__item-error"></span>
+        <span id="name-input-error" className="form__item-error" />
       </label>
       <label className="form__field form__field-info">
         <input
@@ -62,7 +62,7 @@ function App() {
           maxLength="200"
           required
         />
-        <span id="about-input-error" className="form__item-error"></span>
+        <span id="about-input-error" className="form__item-error" />
       </label>
     </>
   );
@@ -80,7 +80,7 @@ function App() {
           maxLength="30"
           required
         />
-        <span id="title-input-error" className="form__item-error"></span>
+        <span id="title-input-error" className="form__item-error" />
       </label>
       <label className="form__field form__field-info">
         <input
@@ -91,7 +91,7 @@ function App() {
           placeholder="Ссылка на картинку"
           required
         />
-        <span id="url-input-error" className="form__item-error"></span>
+        <span id="url-input-error" className="form__item-error" />
       </label>
     </>
   );
@@ -107,7 +107,7 @@ function App() {
           placeholder="Ссылка на картинку"
           required
         />
-        <span id="url-input-error" className="form__item-error"></span>
+        <span id="url-input-error" className="form__item-error" />
       </label>
     </>
   );

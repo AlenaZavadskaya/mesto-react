@@ -6,22 +6,49 @@ function Main(props) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
-	const [cards, setCards] = React.useState([]);
-
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserData().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    });
+    api
+      .getUserData()
+      .then((data) => {
+        setUserName(data.name);
+        setUserDescription(data.about);
+        setUserAvatar(data.avatar);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards().then((data) => {
-      setCards(data);
-    });
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }, []);
+
+  // React.useEffect(() => {
+  //   Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
+  // 		api.getUserData(),
+  // 		api.getInitialCards()
+  // 	])
+  // 		.then((values) => {    //попадаем сюда когда оба промиса будут выполнены
+  // 			const [userData, initialCards] = values;
+  // 			// у нас есть все нужные данные, отрисовываем страницу
+  // 			setUserName(userData.name);
+  // 			setUserDescription(userData.about);
+  // 			setUserAvatar(userData.avatar);
+  // 			setCards(initialCards)
+  // 		})
+  //     .catch((err) => {
+  //       console.log(`Ошибка: ${err}`);
+  //     });
+  // }, []);
 
   return (
     <main className="content">
@@ -46,7 +73,7 @@ function Main(props) {
                 className="edit-button"
                 type="button"
                 onClick={props.onEditProfile}
-              ></button>
+              />
             </div>
             <p className="profile__about">{userDescription}</p>
           </div>
@@ -54,7 +81,7 @@ function Main(props) {
             className="add-button"
             type="button"
             onClick={props.onAddPlace}
-          ></button>
+          />
         </div>
       </section>
       <section className="elements">

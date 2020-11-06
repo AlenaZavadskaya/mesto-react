@@ -1,7 +1,9 @@
 {
   "name": "mesto-react",
-  "version": "0.1.0",
-  "private": true,
+	"version": "0.1.0",
+	"description": "project for storing, adding and viewing images",
+	"author": "Alena Zavadskaya",
+	"private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",

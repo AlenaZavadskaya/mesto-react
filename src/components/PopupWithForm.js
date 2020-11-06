@@ -11,7 +11,7 @@ function PopupWithForm(props) {
           className="popup__close"
           type="button"
           onClick={props.onClose}
-        ></button>
+        />
         <form className="form" id={props.id} action="URL" noValidate>
           <div className="form__container">
             <h2 className="form__heading">{props.title}</h2>
