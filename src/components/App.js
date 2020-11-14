@@ -8,6 +8,8 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import api from "../utils/Api";
 import currentUserContext from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
+
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
@@ -18,8 +20,6 @@ function App() {
     false
   );
 	const [selectedCard, setSelectedCard] = React.useState({});
-
-
 
 	const [currentUser, setCurrentUser] = React.useState({});
 
@@ -36,11 +36,22 @@ function App() {
 	}, []);
 	
 
-	const [isSubmited, setIsSumbited] = React.useState(false);
-	const handleSubmit = (e) => {
+	// const [isSubmited, setIsSumbited] = React.useState(false);
+	function handleSubmit(e) {
 		e.preventDefault();
-		setIsSumbited(true);
+		// props.onUpdateUser({
+		// 	name,
+		// 	about: description,
+		// });
 	}
+
+	function handleUpdateUser(currentUser) {
+    api.setUserInfo(currentUser)
+    .then((userData) => {
+      setCurrentUser(userData);
+      closeAllPopups();
+    })
+  }
 
 
   function handleProfilePopup() {
@@ -61,39 +72,6 @@ function App() {
     setIsEditAvatarPopupOpen();
     setSelectedCard({});
   }
-
-  const childrenProfilePopup = (
-    <>
-      <label className="form__field">
-        <input
-          id="name-input"
-          className="form__item form__item_name"
-          type="text"
-          name="full_name"
-          placeholder="Имя"
-          minLength="2"
-					maxLength="40"
-					// value="value"
-          required
-        />
-        <span id="name-input-error" className="form__item-error" />
-      </label>
-      <label className="form__field form__field-info">
-        <input
-          id="about-input"
-          className="form__item form__item_about"
-          type="text"
-          name="about"
-          placeholder="О себе"
-          minLength="2"
-					maxLength="200"
-					// value="value"
-          required
-        />
-        <span id="about-input-error" className="form__item-error" />
-      </label>
-    </>
-  );
 
   const childrenPlacePopup = (
     <>
@@ -156,7 +134,7 @@ function App() {
 					name = {currentUser.name}
 				/>
 				<Footer />
-				<PopupWithForm
+				{/* <PopupWithForm
 					name="popupProfile"
 					id="form-edit"
 					title="Редактировать профиль"
@@ -164,9 +142,9 @@ function App() {
 					isOpen={isEditProfilePopupOpen}
 					onClose={closeAllPopups}
 					onSubmit={handleSubmit}
-				>
-					{childrenProfilePopup}
-				</PopupWithForm>
+				> */}
+					<EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups} />
+				{/* </PopupWithForm> */}
 				<PopupWithForm
 					name="popupPlace"
 					id="form-card"
