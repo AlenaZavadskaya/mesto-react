@@ -20,7 +20,31 @@ class Api {
       method: "GET",
       headers: this._headers,
     }).then(this._getResponse);
-  }
+	}
+	
+	changeLikeCardStatus(data, isLiked) {
+		if (isLiked) {
+			return fetch(`${this._url}${"cards"}/${"likes"}/${data._id}`, {
+				method: "PUT",
+				headers: this._headers,
+				body: JSON.stringify(data)
+			}).then(this._getResponse);
+		}
+		else {
+			return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
+				method: 'DELETE',
+				headers: this._headers
+			}).then(this._getResponse);
+		}
+	}
+
+	deleteCard(data) {
+		return fetch(`${this._url}${'cards'}/${data._id}`, {
+			method: 'DELETE',
+			headers: this._headers,
+			body: JSON.stringify()
+		}).then(this._getResponse);
+	}
 }
 
 const api = new Api({

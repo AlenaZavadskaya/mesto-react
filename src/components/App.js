@@ -22,34 +22,19 @@ function App() {
 
 
 	const [currentUser, setCurrentUser] = React.useState({});
-	// debugger
+
 	React.useEffect(() => {
     api
       .getUserData()
 			.then((data) => {
-				setCurrentUser({name: data.name, about: data.about, avatar: data.avatar});
-				console.log(data.name, data.about, data.avatar)
 				// debugger
+				setCurrentUser({name: data.name, about: data.about, avatar: data.avatar, _id: data._id});
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
 	}, []);
 	
-	// React.useEffect(() => {
-  //   api
-  //     .getUserData()
-	// 		.then((data) => {
-	// 			setCurrentUser(data.map((item) => ({name: item.name, about: item.about, avatar: item.avatar})));
-	// 			console.log(data.name, data.about, data.avatar)
-	// 			debugger
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     });
-  // }, []);
-
-
 
 	const [isSubmited, setIsSumbited] = React.useState(false);
 	const handleSubmit = (e) => {

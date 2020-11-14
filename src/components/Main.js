@@ -4,31 +4,13 @@ import Card from "../components/Card.js";
 import currentUserContext from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  // const [userName, setUserName] = React.useState();
-  // const [userDescription, setUserDescription] = React.useState();
-  // const [userAvatar, setUserAvatar] = React.useState();
-	const [cards, setCards] = React.useState([]);
-	// debugger
 	const currentUser = React.useContext(currentUserContext);
-// console.log(currentUser.name, currentUser.about)
-
-  // React.useEffect(() => {
-  //   api
-  //     .getUserData()
-  //     .then((data) => {
-  //       setUserName(data.name);
-  //       setUserDescription(data.about);
-  //       setUserAvatar(data.avatar);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     });
-  // }, []);
+	const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api
       .getInitialCards()
-      .then((data) => {
+			.then((data) => {
         setCards(data);
       })
       .catch((err) => {
@@ -36,7 +18,26 @@ function Main(props) {
       });
   }, []);
 
-debugger
+	function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+		api.changeLikeCardStatus(card, !isLiked).then((newCard) => {
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+      const newCards = cards.map((c) => (c._id === card._id) ? newCard : c);
+			setCards(newCards);
+    }) .catch((err) => {
+			console.log(`Ошибка: ${err}`);
+		});
+}
+
+	function handleCardDelete(card) {
+		api.deleteCard(card).then(() => {
+			// debugger
+			const newArr = cards.filter(i => i._id !== card._id);
+			setCards(newArr);
+		})
+	}
+
   return (
     <main className="content">
       <section className="profile">
@@ -74,13 +75,17 @@ debugger
       <section className="elements">
         <ul className="elements__container">
           {cards.map((card) => (
-            <Card
+						<Card
               card={card}
               name={card.name}
               link={card.link}
-              likes={card.likes}
+							likes={card.likes}
+							ownerId={card.owner._id}
               key={card._id}
-              onCardClick={props.onCardClick}
+							onCardClick={props.onCardClick}
+							onCardLike={handleCardLike}
+							onCardDelete={handleCardDelete}
+							id={card.id}
             />
           ))}
         </ul>
