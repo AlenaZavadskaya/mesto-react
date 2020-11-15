@@ -9,6 +9,7 @@ import PopupWithForm from "./PopupWithForm";
 import api from "../utils/Api";
 import currentUserContext from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 
 function App() {
@@ -37,13 +38,13 @@ function App() {
 	
 
 	// const [isSubmited, setIsSumbited] = React.useState(false);
-	function handleSubmit(e) {
-		e.preventDefault();
-		// props.onUpdateUser({
-		// 	name,
-		// 	about: description,
-		// });
-	}
+	// function handleSubmit(e) {
+	// 	e.preventDefault();
+	// 	// props.onUpdateUser({
+	// 	// 	name,
+	// 	// 	about: description,
+	// 	// });
+	// }
 
 	function handleUpdateUser(currentUser) {
     api.setUserInfo(currentUser)
@@ -53,6 +54,13 @@ function App() {
     })
   }
 
+	function handleUpdateAvatar(currentUser) {
+		api.setUserAvatar(currentUser)
+    .then((userData) => {
+      setCurrentUser(userData);
+      closeAllPopups();
+    })
+	}
 
   function handleProfilePopup() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -104,24 +112,6 @@ function App() {
     </>
   );
 
-  const childrenAvatarPopup = (
-    <>
-      <label className="form__field form__field-info">
-        <input
-          id="url-input"
-          className="form__item form__item_avatar form__item_link"
-          type="url"
-          name="link"
-					placeholder="Ссылка на картинку"
-					// value="value"
-          required
-        />
-        <span id="url-input-error" className="form__item-error" />
-      </label>
-    </>
-	);
-	
-	
 
   return (
 			<currentUserContext.Provider value={currentUser}>
@@ -134,17 +124,7 @@ function App() {
 					name = {currentUser.name}
 				/>
 				<Footer />
-				{/* <PopupWithForm
-					name="popupProfile"
-					id="form-edit"
-					title="Редактировать профиль"
-					button="Сохранить"
-					isOpen={isEditProfilePopupOpen}
-					onClose={closeAllPopups}
-					onSubmit={handleSubmit}
-				> */}
 					<EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups} />
-				{/* </PopupWithForm> */}
 				<PopupWithForm
 					name="popupPlace"
 					id="form-card"
@@ -152,21 +132,10 @@ function App() {
 					button="Создать"
 					isOpen={isAddPlacePopupOpen}
 					onClose={closeAllPopups}
-					onSubmit={handleSubmit}
 				>
 					{childrenPlacePopup}
-				</PopupWithForm>
-				<PopupWithForm
-					name="popupAvatar"
-					id="form-avatar"
-					title="Обновить аватар"
-					button="Сохранить"
-					isOpen={isEditAvatarPopupOpen}
-					onClose={closeAllPopups}
-					onSubmit={handleSubmit}
-				>
-					{childrenAvatarPopup}
-				</PopupWithForm>
+			</PopupWithForm>
+			<EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} onClose={closeAllPopups} />
 				<ImagePopup card={selectedCard} onClose={closeAllPopups} />
 					<PopupWithSubmit />
 			</currentUserContext.Provider>

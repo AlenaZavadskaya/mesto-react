@@ -13,21 +13,21 @@ function EditProfilePopup(props) {
 	}, [currentUser]);
 
 	function handleChangeName(e) {
-		// setName(e.target.value);
+		setName(e.target.value);
 	}
 
 	function handleChangeDescription(e) {
-		// setDescription(e.target.value);
+		setDescription(e.target.value);
 	}
 
 	// const [isSubmited, setIsSumbited] = React.useState(false);
-	// function handleSubmit(e) {
-	// 	e.preventDefault();
-	// 	props.onUpdateUser({
-	// 		name,
-	// 		about: description,
-	// 	});
-	// }
+	function handleSubmit(e) {
+		e.preventDefault();
+		props.onUpdateUser({
+			name,
+			about: description,
+		});
+	}
 
 	return (
 		
@@ -38,14 +38,14 @@ function EditProfilePopup(props) {
 					button="Сохранить"
 					isOpen={props.isOpen}
 					onClose={props.onClose}
-					onSubmit={props.handleSubmit}
+					onSubmit={handleSubmit}
 				>
 		<label className="form__field">
 			<input
 				id="name-input"
 				className="form__item form__item_name"
 				type="text"
-				name="full_name"
+				// name="full_name"
 				placeholder="Имя"
 				minLength="2"
 				maxLength="40"
@@ -60,7 +60,7 @@ function EditProfilePopup(props) {
 				id="about-input"
 				className="form__item form__item_about"
 				type="text"
-				name="about"
+				// name="about"
 				placeholder="О себе"
 				minLength="2"
 				maxLength="200"
