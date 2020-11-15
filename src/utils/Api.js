@@ -64,6 +64,15 @@ class Api {
 			body: JSON.stringify({ avatar })
 		}).then(this._getResponse);
 	}
+
+	addCards({ name, link }) {
+		debugger
+		return fetch(`${this._url}${'cards'}`, {
+			method: 'POST',
+			headers: this._headers,
+			body: JSON.stringify({ name, link })
+		}).then(this._getResponse);
+	}
 }
 
 const api = new Api({
