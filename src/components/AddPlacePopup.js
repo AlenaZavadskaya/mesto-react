@@ -30,7 +30,7 @@ function AddPlacePopup(props) {
       name="popupPlace"
       id="form-card"
       title="Новое место"
-      button="Создать"
+      isLoading={props.isLoading ? "Создание..." : "Создать"}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}

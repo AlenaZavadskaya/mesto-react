@@ -20,8 +20,9 @@ function App() {
     false
   );
   const [selectedCard, setSelectedCard] = React.useState({});
-	const [currentUser, setCurrentUser] = React.useState({});
-	const [cards, setCards] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     api
@@ -37,9 +38,9 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-	}, []);
-	
-	React.useEffect(() => {
+  }, []);
+
+  React.useEffect(() => {
     api
       .getInitialCards()
       .then((data) => {
@@ -51,9 +52,11 @@ function App() {
   }, []);
 
   function handleAddPlaceSubmit(card) {
+    setIsLoading(true);
     api
       .addCards(card)
       .then((newCard) => {
+        setIsLoading(false);
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -64,7 +67,6 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     api
       .changeLikeCardStatus(card, !isLiked)
       .then((newCard) => {
@@ -83,20 +85,32 @@ function App() {
     });
   }
 
-  // const [isSubmited, setIsSumbited] = React.useState(false);
-
   function handleUpdateUser(currentUser) {
-    api.setUserInfo(currentUser).then((userData) => {
-      setCurrentUser(userData);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .setUserInfo(currentUser)
+      .then((userData) => {
+        setIsLoading(false);
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 
   function handleUpdateAvatar(currentUser) {
-    api.setUserAvatar(currentUser).then((userData) => {
-      setCurrentUser(userData);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .setUserAvatar(currentUser)
+      .then((userData) => {
+        setIsLoading(false);
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 
   function handleProfilePopup() {
@@ -136,16 +150,19 @@ function App() {
         isOpen={isEditProfilePopupOpen}
         onUpdateUser={handleUpdateUser}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onAddPlace={handleAddPlaceSubmit}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onUpdateAvatar={handleUpdateAvatar}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <PopupWithSubmit />

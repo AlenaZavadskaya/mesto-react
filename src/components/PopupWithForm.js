@@ -25,7 +25,7 @@ function PopupWithForm(props) {
               {props.children}
               <div className="form__handlers">
                 <button className="submit__button" type="submit">
-                  {props.button}
+                  {props.isLoading}
                 </button>
               </div>
             </fieldset>
