@@ -1,10 +1,9 @@
 import React from "react";
-import api from "../utils/Api.js";
 import Card from "../components/Card.js";
-import currentUserContext from '../contexts/CurrentUserContext';
+import currentUserContext from "../contexts/CurrentUserContext";
 
 function Main(props) {
-	const currentUser = React.useContext(currentUserContext);
+  const currentUser = React.useContext(currentUserContext);
 
   return (
     <main className="content">
@@ -43,17 +42,17 @@ function Main(props) {
       <section className="elements">
         <ul className="elements__container">
           {props.cards.map((card) => (
-						<Card
+            <Card
               card={card}
               name={card.name}
               link={card.link}
-							likes={card.likes}
-							ownerId={card.owner._id}
+              likes={card.likes}
+              ownerId={card.owner._id}
               key={card._id}
-							onCardClick={props.onCardClick}
-							onCardLike={props.onCardLike}
-							onCardDelete={props.onCardDelete}
-							id={card.id}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
+              id={card.id}
             />
           ))}
         </ul>
