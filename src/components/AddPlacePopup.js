@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
   const [name, setName] = React.useState("");
-  const [link, setLink] = React.useState();
+  const [link, setLink] = React.useState("");
   const nameRef = React.useRef();
   const linkRef = React.useRef();
 
@@ -12,9 +12,7 @@ function AddPlacePopup(props) {
   }
 
   function handleAddLink(e) {
-    if (e._targetInst !== null) {
       setLink(e.target.value);
-    }
   }
 
   function handleSubmit(e) {

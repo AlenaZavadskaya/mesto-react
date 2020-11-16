@@ -1,5 +1,4 @@
 import React from "react";
-import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -22,30 +21,23 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    api
-      .getUserData()
-      .then((data) => {
-        setCurrentUser({
-          name: data.name,
-          about: data.about,
-          avatar: data.avatar,
-          _id: data._id,
-        });
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
+	const [isLoading, setIsLoading] = React.useState(false);
+	
+	React.useEffect(() => {
+    Promise.all([     
+  		api.getUserData(),
+  		api.getInitialCards()
+  	])
+  		.then((values) => {    
+  			const [userData, initialCards] = values;
+				setCurrentUser({
+					name: userData.name,
+					about: userData.about,
+					avatar: userData.avatar,
+					_id: userData._id,
+				});
+  			setCards(initialCards)
+  		})
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
@@ -82,7 +74,10 @@ function App() {
     api.deleteCard(card).then(() => {
       const newArr = cards.filter((i) => i._id !== card._id);
       setCards(newArr);
-    });
+		})
+		.catch((err) => {
+			console.log(`Ошибка: ${err}`);
+		});
   }
 
   function handleUpdateUser(currentUser) {
