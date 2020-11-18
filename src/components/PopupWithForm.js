@@ -16,7 +16,6 @@ function PopupWithForm(props) {
           className="form"
           id={props.id}
           onSubmit={props.onSubmit}
-          action="URL"
           noValidate
         >
           <div className="form__container">

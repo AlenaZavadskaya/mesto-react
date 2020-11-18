@@ -22,7 +22,6 @@ function EditProfilePopup(props) {
     setDescription(e.target.value);
   }
 
-  // const [isSubmited, setIsSumbited] = React.useState(false);
   function handleSubmit(e) {
     e.preventDefault();
     props.onUpdateUser({

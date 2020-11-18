@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithSubmit from "./PopupWithSubmit";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 import currentUserContext from "../contexts/CurrentUserContext";
@@ -21,23 +20,20 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-	const [isLoading, setIsLoading] = React.useState(false);
-	
-	React.useEffect(() => {
-    Promise.all([     
-  		api.getUserData(),
-  		api.getInitialCards()
-  	])
-  		.then((values) => {    
-  			const [userData, initialCards] = values;
-				setCurrentUser({
-					name: userData.name,
-					about: userData.about,
-					avatar: userData.avatar,
-					_id: userData._id,
-				});
-  			setCards(initialCards)
-  		})
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    Promise.all([api.getUserData(), api.getInitialCards()])
+      .then((values) => {
+        const [userData, initialCards] = values;
+        setCurrentUser({
+          name: userData.name,
+          about: userData.about,
+          avatar: userData.avatar,
+          _id: userData._id,
+        });
+        setCards(initialCards);
+      })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
@@ -71,13 +67,15 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card).then(() => {
-      const newArr = cards.filter((i) => i._id !== card._id);
-      setCards(newArr);
-		})
-		.catch((err) => {
-			console.log(`Ошибка: ${err}`);
-		});
+    api
+      .deleteCard(card)
+      .then(() => {
+        const newArr = cards.filter((i) => i._id !== card._id);
+        setCards(newArr);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 
   function handleUpdateUser(currentUser) {
@@ -160,7 +158,6 @@ function App() {
         isLoading={isLoading}
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      <PopupWithSubmit />
     </currentUserContext.Provider>
   );
 }

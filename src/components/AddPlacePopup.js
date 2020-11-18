@@ -2,25 +2,23 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-  const [name, setName] = React.useState("");
-  const [link, setLink] = React.useState("");
-  const nameRef = React.useRef();
-  const linkRef = React.useRef();
+  const [name, setName] = React.useState('');
+  const [link, setLink] = React.useState('');
 
-  function handleAddName(e) {
+	function handleAddTitle(e) {
     setName(e.target.value);
   }
 
-  function handleAddLink(e) {
+	function handleAddLink(e) {
       setLink(e.target.value);
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
+		e.preventDefault();
     props.onAddPlace({
-      name: nameRef.current.value,
-      link: linkRef.current.value,
-    });
+      name,
+      link
+		});
   }
 
   return (
@@ -43,8 +41,7 @@ function AddPlacePopup(props) {
           minLength="1"
           maxLength="30"
           value={name}
-          onChange={handleAddName}
-          ref={nameRef}
+					onChange={handleAddTitle}
           required
         />
         <span id="title-input-error" className="form__item-error" />
@@ -58,7 +55,6 @@ function AddPlacePopup(props) {
           placeholder="Ссылка на картинку"
           value={link}
           onChange={handleAddLink}
-          ref={linkRef}
           required
         />
         <span id="url-input-error" className="form__item-error" />
