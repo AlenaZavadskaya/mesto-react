@@ -123,7 +123,20 @@ function App() {
     setIsAddPlacePopupOpen();
     setIsEditAvatarPopupOpen();
     setSelectedCard({});
-  }
+	}
+	
+	React.useEffect(() => {
+    function handleESCclose(evt) {
+      if (evt.key === "Escape") {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', handleESCclose);
+    return () => {
+      document.removeEventListener('keydown', handleESCclose);
+    }
+  }, [])
 
   return (
     <currentUserContext.Provider value={currentUser}>
