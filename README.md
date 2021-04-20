@@ -1,20 +1,32 @@
-# Mesto
+# Приложение Mesto :sparkler:
 
-https://alenazavadskaya.github.io/mesto-react/
+Это интерактивная страница, куда можно добавлять фотографии, удалять их и ставить друг другу лайки. Реализовано три модальных окна, с помощью которых можно редактировать профиль, загружать новые фотографии и просматривать фото в галлерее.
 
-This is an interactive page where you can add photos, delete them, and like. Three modal windows have been implemented, with which you can edit profile, upload new photos, like and view photos in the gallery.
 
-The site is responsive, adapted for resolutions: 320px, 1280px.
+## [Ссылка на сайт](https://alenazavadskaya.github.io/mesto-react/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![](src/images/main_page.jpg)
 
-In the project directory, you can run:
+### :computer: Установка и запуск проекта
+*1. клонируйте репозиторий:*<br/>
+`git clone https://github.com/AlenaZavadskaya/mesto-react.git`<br/>
+*2. установите зависимости:*<br/>
+ `npm install`<br/>
+*3. осуществите сборку:*<br/>
+ `npm run build`<br/>
+ *4. запустите сервер:*<br/>
+ `npm start`<br/>
 
-### `npm start`
+### :rocket: Технологии
+- React
+- JavaScript
+- ООП
+- Функциональные компоненты 
+- CSS 
+- Flexbox
+- JSX
+- BEM 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
